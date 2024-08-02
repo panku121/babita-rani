@@ -503,7 +503,7 @@
 			const subject = document.getElementById("subject").value;
 			const message = document.getElementById("message").value;
             
-			let ebody = `
+			let formDataToMail = `
             <b> Person Name: </b> ${yourName}
             <br/>
             <b> Email: </b> ${email}
@@ -517,7 +517,7 @@
 				To: "babita00290@gmail.com",
 				From: "babita00290@gmail.com",
 				Subject: subject,
-				Body: message
+				Body: formDataToMail
 			}
             
 			Email.send(options)
