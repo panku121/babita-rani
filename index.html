@@ -423,10 +423,10 @@
                 <div class="col-lg-8">
                     <div class="contact-form text-center">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form onsubmit="sendMail(); reset(); return false;">
                             <div class="form-row">
                                 <div class="control-group col-sm-6">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
+                                    <input type="text" class="form-control p-4" id="yourName" placeholder="Your Name"
                                         required="required" data-validation-required-message="Please enter your name" />
                                     <p class="help-block text-danger"></p>
                                 </div>
@@ -490,8 +490,53 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-outline-dark px-0 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
     <!-- JavaScript Libraries -->
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+	<script>
+
+		function sendMail() {
+            
+			const yourName = document.getElementById("yourName").value;
+			const email = document.getElementById("email").value;
+			const subject = document.getElementById("subject").value;
+			const message = document.getElementById("message").value;
+            
+			let ebody = `
+            <b> Person Name: </b> ${yourName}
+            <br/>
+            <b> Email: </b> ${email}
+            <br/>
+            <b> Mail Subject: </b> ${subject}
+            <br/>
+            <b> User Message: </b> ${message}
+            `
+			let options = {
+                SecureToken: "b77364e5-85f3-47b7-abbb-8cb2e81a5299",
+				To: "babita00290@gmail.com",
+				From: "babita00290@gmail.com",
+				Subject: subject,
+				Body: message
+			}
+            
+			Email.send(options)
+				.then(
+					message => {
+						console.log(message);
+						if (message == 'OK') {
+							alert('Thanks for submitting details. I will contact you soon.');
+						}
+						else {
+                            console.error(message);
+							alert('Error submitting form.')
+						}
+					}
+				);
+        }
+
+	</script>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/typed/typed.min.js"></script>
